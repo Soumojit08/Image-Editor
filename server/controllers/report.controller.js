@@ -1,6 +1,6 @@
 import { extractTextFromReport } from "../services/ocrService.js";
 
-export const processReport = async () => {
+export const processReport = async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No files uploaded" });
 
