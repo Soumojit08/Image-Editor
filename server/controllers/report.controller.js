@@ -1,17 +1,29 @@
+// controllers/index.controller.js
 import { extractTextFromReport } from "../services/ocrService.js";
 
 export const processReport = async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ error: "No files uploaded" });
+  if (!req.file) {
+    return res.status(400).json({ error: "No files uploaded" });
+  }
 
-    const textData = await extractTextFromReport(req.file.path);
+  // Check if the uploaded file is a PDF
+  if (!req.file.mimetype || !req.file.mimetype.includes("pdf")) {
+    return res.status(400).json({ error: "Only PDF files are allowed" });
+  }
+
+  try {
+    console.log("Uploaded file:", req.file);
+
+    const extractedText = await extractTextFromReport(req.file.path);
 
     res.json({
       message: "Report processed successfully",
-      extractedText: textData,
+      filename: req.file.originalname,
+      text: extractedText.slice(0, 500) + "...", // First 500 chars
+      fullTextLength: extractedText.length,
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to process report" });
+    console.error("Error processing report:", err);
+    res.status(500).json({ error: "Failed to process report: " + err.message });
   }
 };
