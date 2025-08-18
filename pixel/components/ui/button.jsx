@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        primary:
+          "bg-gradient-to-r from-blue-500 to-purple-600 border-transparent hover:shadow-2xl hover:shadow-blue-500/25 hover:tranform hover:scale-105",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -33,7 +35,7 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 function Button({
   className,
