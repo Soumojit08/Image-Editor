@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: inter;
+  src: url("/fonts/Inter_18pt-Light.ttf"), url("/fonts/Inter_18pt-Regular.ttf"),
+    url("/fonts/Inter_18pt-Bold.ttf");
+}
+
+@theme {
+  /* 🎨 COLORS */
+  --color-primary: #22c55e;
+  --color-background: #ffffff;
+  --color-foreground: #09090b;
+  --color-muted: #71717a;
+
+  /* 📏 SPACING */
+  --spacing-4: 1rem;
+  --spacing-8: 2rem;
+  --spacing-16: 4rem;
+
+  --font-sans: "Inter", sans-serif;
+
+  /* 📄 FONT SIZES */
+  --font-size-base: 1rem / 1.5rem;
+  --font-size-lg: 1.125rem / 1.75rem;
+  --font-size-2xl: 1.5rem / 2rem;
+
+  /* ⚪ BORDER RADIUS */
+  --border-radius-DEFAULT: 0.5rem; /* For the 'rounded' class */
+  --border-radius-lg: 0.75rem; /* For 'rounded-lg' */
+  --border-radius-full: 9999px; /* For 'rounded-full' */
+
+  /* ✨ SHADOWS */
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Example of applying base styles */
+body {
+  @apply bg-background text-foreground font-sans;
+  font-family: "Inter", sans-serif;
+}
