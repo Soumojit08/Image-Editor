@@ -2,6 +2,8 @@ import Button from "./components/Button";
 import LightRays from "./components/LightRays";
 import PillNav from "./components/PillNav";
 import ShinyText from "./components/ShinyText";
+import { ArrowDown } from "lucide-react";
+import ChevronDown from "./components/ChevronDown";
 
 const App = () => {
   return (
@@ -84,6 +86,16 @@ const App = () => {
             />
           </button>
         </div>
+
+        <div className="arrow">
+          <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-3 px-1 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80">
+            <ChevronDown className="text-foreground" />
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h1>Upload Ingredients</h1>
       </div>
     </div>
   );
