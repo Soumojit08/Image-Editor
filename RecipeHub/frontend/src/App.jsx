@@ -52,18 +52,18 @@ const App = () => {
         </div>
 
         {/* bg texts  */}
-        <div className="flex-wrap ">
+        <div className="flex-wrap">
           <ShinyText
             text="Find Your Recipe"
             disabled={false}
             speed={4}
-            className="custom-class shiny-text text-2xl capitalize font-bold md:text-6xl lg:text-6xl"
+            className="custom-class shiny-text text-2xl capitalize font-bold tracking-tight md:text-8xl lg:text-8xl"
           />
           <ShinyText
             text="With Single Click"
             disabled={false}
             speed={4}
-            className="custom-class shiny-text text-2xl capitalize font-bold md:text-6xl lg:text-6xl"
+            className="custom-class shiny-text text-2xl capitalize font-bold tracking-tight  md:text-8xl lg:text-8xl"
           />
         </div>
 
