@@ -1,8 +1,8 @@
 import Button from "../components/Button";
 import LightRays from "../components/LightRays";
-import PillNav from "../components/PillNav";
 import ShinyText from "../components/ShinyText";
 import ChevronDown from "../components/ChevronDown";
+import { Cookie } from "lucide-react";
 
 const Home = () => {
   return (
@@ -21,33 +21,20 @@ const Home = () => {
         className="custom-rays"
       />
 
-      {/* nav  */}
-      <div className="w-full flex items-center justify-center z-[999]">
-        <PillNav
-          items={[
-            { label: "Home", href: "/" },
-            { label: "About", href: "/about" },
-            { label: "Contact", href: "/contact" },
-          ]}
-          className="custom-nav"
-          ease="power2.easeOut"
-          baseColor="#000000"
-          pillColor="#fafafa"
-          hoveredPillTextColor="#fafafa"
-          pillTextColor="#0A0A0A"
-        />
-      </div>
-
       {/* background texts  */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 flex flex-col text-center">
         {/* bg not clickable button  */}
         <div>
           <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-1 px-3 rounded-full mb-3 transition-transform duration-300 ease-in-out">
             <ShinyText
-              text="AI Powered Recipe Generator"
+              text={
+                <div className="flex items-center justify-center gap-1">
+                  <Cookie size={15} /> AI Powered Recipe Generator
+                </div>
+              }
               disabled={false}
               speed={3}
-              className="custom-class shiny-text text-xs capitalize md:text-sm lg:text-sm"
+              className="custom-class shiny-text text-xs capitalize md:text-sm lg:text-sm "
             />
           </button>
         </div>
@@ -87,7 +74,7 @@ const Home = () => {
         </div>
 
         <div className="arrow">
-          <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-3 px-1 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80">
+          <button className="mt-2 border-1 border-zinc-200/20 bg-zinc-400/10 py-3 px-1 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80">
             <ChevronDown className="text-foreground" />
           </button>
         </div>
