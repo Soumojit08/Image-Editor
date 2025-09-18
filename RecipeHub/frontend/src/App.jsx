@@ -1,10 +1,10 @@
 import LightRays from "./components/LightRays";
 import PillNav from "./components/PillNav";
-import Logo from "./assets/react.svg";
 
 const App = () => {
   return (
     <div className="relative min-h-screen w-full font-sans dark:bg-background text-foreground ">
+      {/* background animation  */}
       <LightRays
         raysOrigin="top-center"
         raysColor="#22C55E"
@@ -18,6 +18,7 @@ const App = () => {
         className="custom-rays"
       />
 
+      {/* nav  */}
       <div className="w-full flex items-center justify-center z-[999]">
         <PillNav
           items={[
@@ -33,6 +34,8 @@ const App = () => {
           pillTextColor="#0A0A0A"
         />
       </div>
+
+
     </div>
   );
 };
