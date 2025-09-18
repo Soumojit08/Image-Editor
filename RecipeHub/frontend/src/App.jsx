@@ -1,4 +1,6 @@
 import LightRays from "./components/LightRays";
+import PillNav from "./components/PillNav";
+import Logo from "./assets/react.svg";
 
 const App = () => {
   return (
@@ -15,6 +17,22 @@ const App = () => {
         distortion={0.05}
         className="custom-rays"
       />
+
+      <div className="w-full flex items-center justify-center z-[999]">
+        <PillNav
+          items={[
+            { label: "Home", href: "/" },
+            { label: "About", href: "/about" },
+            { label: "Contact", href: "/contact" },
+          ]}
+          className="custom-nav"
+          ease="power2.easeOut"
+          baseColor="#000000"
+          pillColor="#fafafa"
+          hoveredPillTextColor="#fafafa"
+          pillTextColor="#0A0A0A"
+        />
+      </div>
     </div>
   );
 };
