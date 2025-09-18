@@ -46,7 +46,7 @@ const App = () => {
               text="AI Powered Recipe Generator"
               disabled={false}
               speed={3}
-              className="custom-class shiny-text text-sm capitalize"
+              className="custom-class shiny-text text-xs capitalize md:text-sm lg:text-sm"
             />
           </button>
         </div>
@@ -57,30 +57,30 @@ const App = () => {
             text="Find Your Recipe"
             disabled={false}
             speed={4}
-            className="custom-class shiny-text text-6xl capitalize font-bold"
+            className="custom-class shiny-text text-2xl capitalize font-bold md:text-6xl lg:text-6xl"
           />
           <ShinyText
             text="With Single Click"
             disabled={false}
             speed={4}
-            className="custom-class shiny-text text-6xl capitalize font-bold"
+            className="custom-class shiny-text text-2xl capitalize font-bold md:text-6xl lg:text-6xl"
           />
         </div>
 
         {/* buttons  */}
-        <div className="flex items-center justify-center mt-4 gap-6 flex-col md:flex-row lg:flex-row sm:gap-4">
+        <div className="flex items-center justify-center mt-4 gap-2 flex-col md:flex-row lg:flex-row md:gap-4 lg:gap-4">
           <Button
             text={"Get Started"}
             bgColor={"#fafafa"}
             textColor={"#0a0a0a"}
             opacity={1}
           />
-          <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-4 px-8 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80">
+          <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-2 px-4 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80 md:py-4 md:px-8 lg:py-4 lg:px-8">
             <ShinyText
               text="Learn More"
               disabled={false}
               speed={3}
-              className="custom-class shiny-text text-2xl capitalize"
+              className="custom-class shiny-text text-lg capitalize md:text-2xl lg:text-2xl"
             />
           </button>
         </div>
