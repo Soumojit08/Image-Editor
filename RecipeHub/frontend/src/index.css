@@ -8,17 +8,38 @@
 
 @theme {
   /* 🎨 COLORS */
-  --color-primary: #22c55e;
-  --color-background: #ffffff;
-  --color-foreground: #09090b;
-  --color-muted: #71717a;
+  --color-background: #000000;
+  --color-foreground: #FAFAFA;
+  --color-primary: #22C55E;
+  --color-primary-foreground: #0A0A0A;
+  --color-secondary: #18181B;
+  --color-secondary-foreground: #FAFAFA;
+  --color-accent: #09090B;
+  --color-accent-foreground: #FAFAFA;
+  --color-card: #040404;
+  --color-card-foreground: #FAFAFA;
+  --color-popover: #000000;
+  --color-popover-foreground: #FAFAFA;
+  --color-muted: #18181B;
+  --color-muted-foreground: #A1A1AA;
+  --color-border: #27272A;
+  --color-input: #27272A;
+  --color-ring: #22C55E;
+  --color-destructive: #7F1D1D;
+  --color-destructive-foreground: #F8FAFC;
+  --color-chart-1: #22C55E;
+  --color-chart-2: #4ADE80;
+  --color-chart-3: #86EFAC;
+  --color-chart-4: #BBF7D0;
+  --color-chart-5: #DCFCE7;
+
+  /* ✒️ FONTS */
+  --font-sans: "Inter", sans-serif;
 
   /* 📏 SPACING */
   --spacing-4: 1rem;
   --spacing-8: 2rem;
   --spacing-16: 4rem;
-
-  --font-sans: "Inter", sans-serif;
 
   /* 📄 FONT SIZES */
   --font-size-base: 1rem / 1.5rem;
@@ -27,17 +48,15 @@
 
   /* ⚪ BORDER RADIUS */
   --border-radius-DEFAULT: 0.5rem; /* For the 'rounded' class */
-  --border-radius-lg: 0.75rem; /* For 'rounded-lg' */
-  --border-radius-full: 9999px; /* For 'rounded-full' */
+  --border-radius-lg: 0.75rem;      /* For 'rounded-lg' */
+  --border-radius-full: 9999px;     /* For 'rounded-full' */
 
   /* ✨ SHADOWS */
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
 }
 
-/* Example of applying base styles */
+/* Base styles */
 body {
   @apply bg-background text-foreground font-sans;
-  font-family: "Inter", sans-serif;
 }
