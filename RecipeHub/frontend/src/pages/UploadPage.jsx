@@ -1,4 +1,4 @@
-import React from 'react'
+import {UploadButton, UploadDropzone,} from "@uploadthing/react"
 
 const UploadPage = () => {
   return (
