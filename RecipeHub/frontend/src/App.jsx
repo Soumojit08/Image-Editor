@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import UploadPage from "./pages/UploadPage";
 import ResultPage from "./pages/ResultPage";
+import LearnMore from "./pages/LearnMore";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/upload" element={<UploadPage />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/learn-more" element={<LearnMore />} />
       </Routes>
     </>
   );

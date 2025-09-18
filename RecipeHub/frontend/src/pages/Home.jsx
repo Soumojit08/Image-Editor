@@ -3,8 +3,19 @@ import LightRays from "../components/LightRays";
 import ShinyText from "../components/ShinyText";
 import ChevronDown from "../components/ChevronDown";
 import { Cookie } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate("/upload");
+  };
+
+  const handleLearnMore = () => {
+    navigate("/learn-more");
+  };
+
   return (
     <div className="relative h-screen w-full font-sans dark:bg-background text-foreground ">
       {/* background animation  */}
@@ -62,8 +73,12 @@ const Home = () => {
             bgColor={"#fafafa"}
             textColor={"#0a0a0a"}
             opacity={1}
+            fun={handleGetStarted}
           />
-          <button className="border-1 border-zinc-200/20 bg-zinc-400/10 py-2 px-4 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80 md:py-4 md:px-8 lg:py-4 lg:px-8">
+          <button
+            onClick={handleLearnMore}
+            className="border-1 border-zinc-200/20 bg-zinc-400/10 py-2 px-4 rounded-full transition-transform duration-300 ease-in-out cursor-pointer hover:opacity-80 md:py-4 md:px-8 lg:py-4 lg:px-8"
+          >
             <ShinyText
               text="Learn More"
               disabled={false}
