@@ -60,3 +60,13 @@
 body {
   @apply bg-background text-foreground font-sans;
 }
+
+@keyframes shine {
+  0% { background-position: 100% }
+  100% { background-position: -100% }  
+}
+
+.shiny-text {
+  animation: shine 5s linear infinite;
+
+}
