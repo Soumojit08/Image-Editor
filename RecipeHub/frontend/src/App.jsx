@@ -2,16 +2,16 @@ import LightRays from "./components/LightRays";
 
 const App = () => {
   return (
-    <div className="relative h-full w-full font-sans dark:bg-background text-foreground ">
+    <div className="relative min-h-screen w-full font-sans dark:bg-background text-foreground ">
       <LightRays
         raysOrigin="top-center"
-        raysColor="#00ffff"
-        raysSpeed={1.5}
-        lightSpread={0.8}
-        rayLength={1.2}
+        raysColor="#22C55E"
+        raysSpeed={1.3}
+        lightSpread={0.9}
+        rayLength={1.1}
         followMouse={true}
-        mouseInfluence={0.1}
-        noiseAmount={0.1}
+        mouseInfluence={0.2}
+        noiseAmount={0.2}
         distortion={0.05}
         className="custom-rays"
       />
