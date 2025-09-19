@@ -6,11 +6,13 @@ import Navbar from "./components/Navbar";
 import UploadPage from "./pages/UploadPage";
 import ResultPage from "./pages/ResultPage";
 import LearnMore from "./pages/LearnMore";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <>
       <Navbar />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import LightRays from "../components/LightRays";
 import { UploadCloud } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const UploadPage = () => {
   const [dragActive, setDragActive] = useState(false);
@@ -28,7 +30,7 @@ const UploadPage = () => {
       setError("Only image files are allowed.");
       return;
     }
-    // optional: limit file size to 10MB
+
     if (f.size > 10 * 1024 * 1024) {
       setError("File is too large (max 10MB).");
       return;
@@ -47,7 +49,7 @@ const UploadPage = () => {
 
   const onDragLeave = (e) => {
     e.preventDefault();
-    // only clear when leaving the drop area entirely
+
     if (e.target === e.currentTarget) setDragActive(false);
   };
 
@@ -57,12 +59,50 @@ const UploadPage = () => {
     handleFiles(e.dataTransfer.files);
   };
 
-  const onInputChange = (e) => {
-    handleFiles(e.target.files);
-  };
-
   const onAreaClick = () => {
     inputRef.current?.click();
+  };
+
+  const handleUpload = async (event) => {
+    const selectedFile = event?.target?.files?.[0] ?? file;
+
+    if (!selectedFile) return;
+
+    setError("");
+
+    const data = new FormData();
+    data.append("file", selectedFile);
+    // Cloudinary unsigned preset name
+    data.append("upload_preset", "RecipeHub");
+
+    const uploadUrl =
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_URL ||
+      "https://api.cloudinary.com/v1_1/dlbbau4ke/image/upload";
+
+    try {
+      const resp = await axios.post(uploadUrl, data, {
+        withCredentials: false,
+      });
+
+      if (resp?.data?.secure_url) {
+        setPreview(resp.data.secure_url);
+        setFile(selectedFile);
+      }
+
+      console.log("Upload success", resp?.data);
+      toast.success("Image uploaded successfully!");
+    } catch (err) {
+      console.error("Upload error", err?.response || err);
+      toast.error("Image upload failed.");
+      const message =
+        err?.response?.data?.error?.message ||
+        err?.response?.data?.message ||
+        (err?.response
+          ? `Upload failed: ${err.response.status}`
+          : "Upload failed");
+      setError(message);
+      throw err;
+    }
   };
 
   return (
@@ -101,7 +141,7 @@ const UploadPage = () => {
             type="file"
             name="file"
             accept="image/*"
-            onChange={onInputChange}
+            onChange={handleUpload}
             className="hidden"
           />
 
@@ -139,6 +179,19 @@ const UploadPage = () => {
                   className="px-4 py-2 bg-destructive text-white rounded-md cursor-pointer hover:opacity-90 transition"
                 >
                   Remove
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await handleUpload();
+                    } catch {
+                      /* error already handled in handleUpload */
+                    }
+                  }}
+                  className="px-4 py-2 bg-accent text-white rounded-md cursor-pointer hover:opacity-90 transition"
+                >
+                  Upload
                 </button>
                 <span className="text-sm text-muted-foreground">
                   {file?.name}
