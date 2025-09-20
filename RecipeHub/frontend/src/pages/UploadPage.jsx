@@ -3,12 +3,15 @@ import LightRays from "../components/LightRays";
 import { UploadCloud } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { GoogleGenAI } from "@google/genai";
 
 const UploadPage = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState("");
   const inputRef = useRef(null);
+
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
   useEffect(() => {
     if (!file) {
@@ -51,10 +54,28 @@ const UploadPage = () => {
       toast.success("Image uploaded successfully!");
       console.log("Upload success:", resp.data.secure_url);
 
-      setPreview(resp.data.secure_url); 
+      setPreview(resp.data.secure_url);
+      const items = await detectFood(resp.data.secure_url);
+      console.log("Detected items:", items);
     } catch (err) {
       toast.error("Image upload failed.");
       console.error("Upload error:", err);
+    }
+  };
+
+  const detectFood = async (imageUrl) => {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `Identify the food items in the image at this URL: ${imageUrl}. List them as a comma-separated list.`,
+      });
+
+      console.log("Food detection response:", response.candidates[0].content);
+      toast.success("Food items detected!");
+      return response.candidates[0].content.parts[0];
+    } catch (error) {
+      console.error("Error detecting food:", error);
+      toast.error("Failed to detect food items.");
     }
   };
 
