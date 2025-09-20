@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import LightRays from "../components/LightRays";
 import { UploadCloud } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const UploadPage = () => {
-  const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState("");
@@ -16,92 +15,46 @@ const UploadPage = () => {
       setPreview(null);
       return;
     }
-
     const url = URL.createObjectURL(file);
     setPreview(url);
     return () => URL.revokeObjectURL(url);
   }, [file]);
 
-  const handleFiles = useCallback((files) => {
-    setError("");
-    if (!files || files.length === 0) return;
-    const f = files[0];
-    if (!f.type || !f.type.startsWith("image/")) {
+  const handleFileChange = (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+
+    if (!f.type.startsWith("image/")) {
       setError("Only image files are allowed.");
       return;
     }
-
     if (f.size > 10 * 1024 * 1024) {
       setError("File is too large (max 10MB).");
       return;
     }
-    setFile(f);
-  }, []);
-
-  const onDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const onDragEnter = (e) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
-
-  const onDragLeave = (e) => {
-    e.preventDefault();
-
-    if (e.target === e.currentTarget) setDragActive(false);
-  };
-
-  const onDrop = (e) => {
-    e.preventDefault();
-    setDragActive(false);
-    handleFiles(e.dataTransfer.files);
-  };
-
-  const onAreaClick = () => {
-    inputRef.current?.click();
-  };
-
-  const handleUpload = async (event) => {
-    const selectedFile = event?.target?.files?.[0] ?? file;
-
-    if (!selectedFile) return;
 
     setError("");
+    setFile(f);
+  };
+
+  const handleUpload = async () => {
+    if (!file) return;
 
     const data = new FormData();
-    data.append("file", selectedFile);
-    // Cloudinary unsigned preset name
+    data.append("file", file);
     data.append("upload_preset", "RecipeHub");
 
-    const uploadUrl =
-      import.meta.env.VITE_CLOUDINARY_UPLOAD_URL ||
-      "https://api.cloudinary.com/v1_1/dlbbau4ke/image/upload";
-
     try {
-      const resp = await axios.post(uploadUrl, data, {
-        withCredentials: false,
-      });
+      const uploadUrl = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;
 
-      if (resp?.data?.secure_url) {
-        setPreview(resp.data.secure_url);
-        setFile(selectedFile);
-      }
-
-      console.log("Upload success", resp?.data);
+      const resp = await axios.post(uploadUrl, data);
       toast.success("Image uploaded successfully!");
+      console.log("Upload success:", resp.data.secure_url);
+
+      setPreview(resp.data.secure_url); 
     } catch (err) {
-      console.error("Upload error", err?.response || err);
       toast.error("Image upload failed.");
-      const message =
-        err?.response?.data?.error?.message ||
-        err?.response?.data?.message ||
-        (err?.response
-          ? `Upload failed: ${err.response.status}`
-          : "Upload failed");
-      setError(message);
-      throw err;
+      console.error("Upload error:", err);
     }
   };
 
@@ -124,24 +77,14 @@ const UploadPage = () => {
         <div
           role="button"
           tabIndex={0}
-          onClick={onAreaClick}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") onAreaClick();
-          }}
-          onDragOver={onDragOver}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-          className={`box max-w-xl w-11/12  md:w-1/2 rounded-2xl p-8 border border-zinc-200/20 bg-zinc-400/10 flex flex-col items-center justify-center cursor-pointer transition-shadow ${
-            dragActive ? "shadow-lg ring-2 ring-accent-400/50" : ""
-          }`}
+          onClick={() => inputRef.current?.click()}
+          className="box max-w-xl w-11/12 md:w-1/2 rounded-2xl p-8 border border-zinc-200/20 bg-zinc-400/10 flex flex-col items-center justify-center cursor-pointer transition-shadow"
         >
           <input
             ref={inputRef}
             type="file"
-            name="file"
             accept="image/*"
-            onChange={handleUpload}
+            onChange={handleFileChange}
             className="hidden"
           />
 
@@ -152,8 +95,7 @@ const UploadPage = () => {
                 Upload Your Image
               </h1>
               <p className="text-base text-foreground/50 w-3/4 text-center">
-                Drag and drop your image here or click to select a file. Note:
-                Only image files are allowed.
+                Drag and drop your image here or click to select a file.
               </p>
               {error && (
                 <p className="text-sm text-destructive mt-3" role="alert">
@@ -162,10 +104,10 @@ const UploadPage = () => {
               )}
             </>
           ) : (
-            <div className="w-full h-full flex flex-col items-center gap-4">
+            <div className="w-full flex flex-col items-center gap-4">
               <img
                 src={preview}
-                alt={file?.name || "Selected image"}
+                alt="Uploaded preview"
                 className="max-h-80 object-contain rounded-md"
               />
               <div className="flex items-center gap-4">
@@ -176,20 +118,14 @@ const UploadPage = () => {
                     setPreview(null);
                     setError("");
                   }}
-                  className="px-4 py-2 bg-destructive text-white rounded-md cursor-pointer hover:opacity-90 transition"
+                  className="px-4 py-2 bg-destructive text-white rounded-md hover:opacity-90 transition"
                 >
                   Remove
                 </button>
                 <button
                   type="button"
-                  onClick={async () => {
-                    try {
-                      await handleUpload();
-                    } catch {
-                      /* error already handled in handleUpload */
-                    }
-                  }}
-                  className="px-4 py-2 bg-accent text-white rounded-md cursor-pointer hover:opacity-90 transition"
+                  onClick={handleUpload}
+                  className="px-4 py-2 bg-accent text-white rounded-md hover:opacity-90 transition cursor-pointer"
                 >
                   Upload
                 </button>
