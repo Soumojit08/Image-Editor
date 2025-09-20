@@ -77,7 +77,9 @@ const UploadPage = () => {
         <div
           role="button"
           tabIndex={0}
-          onClick={() => inputRef.current?.click()}
+          onClick={() => {
+            if (!file) inputRef.current?.click();
+          }}
           className="box max-w-xl w-11/12 md:w-1/2 rounded-2xl p-8 border border-zinc-200/20 bg-zinc-400/10 flex flex-col items-center justify-center cursor-pointer transition-shadow"
         >
           <input
