@@ -65,14 +65,31 @@ const UploadPage = () => {
 
   const detectFood = async (imageUrl) => {
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: `Identify the food items in the image at this URL: ${imageUrl}. List them as a comma-separated list.`,
-      });
+      const resp = await fetch(imageUrl);
+      const blob = await resp.blob();
 
-      console.log("Food detection response:", response.candidates[0].content);
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64ImageData = reader.result.split(",")[1];
+
+        const result = await ai.models.generateContent({
+          model: "gemini-2.5-flash",
+          contents: [
+            {
+              inlineData: {
+                mimeType: "image/jpeg",
+                data: base64ImageData,
+              },
+            },
+            {
+              text: "Identify the food items in this image. List them as a comma-separated list.",
+            },
+          ],
+        });
+        console.log("Food detection response:", result.text);
+      };
       toast.success("Food items detected!");
-      return response.candidates[0].content.parts[0];
+      reader.readAsDataURL(blob);
     } catch (error) {
       console.error("Error detecting food:", error);
       toast.error("Failed to detect food items.");
