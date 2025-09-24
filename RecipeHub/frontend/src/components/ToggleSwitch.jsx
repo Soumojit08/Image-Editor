@@ -39,7 +39,7 @@ const ToggleSwitch = ({
             toggle();
           }
         }}
-        className={`relative w-40 h-12 rounded-full bg-zinc-400/10 focus:outline-none focus:ring-2 focus:ring-zinc-400/20 transition-colors duration-200 cursor-pointer`}
+        className={`relative w-42 h-12 rounded-full bg-zinc-400/10 focus:outline-none focus:ring-2 focus:ring-zinc-400/20 transition-colors duration-200 cursor-pointer `}
       >
         {/* thumb (under labels) */}
         <div
@@ -49,7 +49,7 @@ const ToggleSwitch = ({
         ></div>
 
         {/* labels (above thumb) */}
-        <div className="absolute inset-0 flex items-center justify-between px-3 pointer-events-none select-none z-10">
+        <div className="absolute inset-0 flex items-center justify-around pointer-events-none select-none z-10">
           <span
             className={`text-sm font-medium transition-colors duration-200 ${
               position === "left" ? "text-white" : "text-gray-400"
