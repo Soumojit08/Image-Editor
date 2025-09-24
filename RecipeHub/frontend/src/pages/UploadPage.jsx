@@ -2,6 +2,7 @@ import LightRays from "../components/LightRays";
 import UploadSection from "../components/UploadSection";
 import ToggleSwitch from "../components/ToggleSwitch";
 import { useState } from "react";
+import TextField from "../components/TextField";
 
 const UploadPage = () => {
   const [mode, setMode] = useState("image");
@@ -30,7 +31,7 @@ const UploadPage = () => {
         />
       </div>
 
-      <UploadSection mode={mode} />
+      {mode === "image" ? <UploadSection /> : <TextField />}
     </div>
   );
 };
