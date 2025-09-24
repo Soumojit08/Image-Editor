@@ -1,7 +1,11 @@
 import LightRays from "../components/LightRays";
 import UploadSection from "../components/UploadSection";
+import ToggleSwitch from "../components/ToggleSwitch";
+import { useState } from "react";
 
 const UploadPage = () => {
+  const [mode, setMode] = useState("image");
+
   return (
     <div className="h-screen w-full relative">
       <LightRays
@@ -17,7 +21,16 @@ const UploadPage = () => {
         className="custom-rays"
       />
 
-      <UploadSection />
+      <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20">
+        <ToggleSwitch
+          leftLabel="Image"
+          rightLabel="Text"
+          initial={mode === "image" ? "left" : "right"}
+          onChange={(m) => setMode(m)}
+        />
+      </div>
+
+      <UploadSection mode={mode} />
     </div>
   );
 };
